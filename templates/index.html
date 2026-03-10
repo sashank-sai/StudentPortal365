@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Student Hub — Your complete 4-year student toolkit. Find the best tools for coding, research, productivity, and student deals all in one place.">
+    <title>Student Hub — Your Complete 4-Year Student Toolkit</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="navbar navbar-expand-lg sticky-top" id="main-navbar">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <span class="brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+                <span class="brand-text">Student<span class="brand-accent">Hub</span></span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#categories">Explore</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/marketplace"><i
+                                class="bi bi-bag-fill me-1"></i>Marketplace</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-theme-toggle" id="themeToggle" title="Toggle theme">
+                            <i class="bi bi-sun-fill" id="themeIcon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-accent btn-sm px-3" href="https://github.com" target="_blank" rel="noopener">
+                            <i class="bi bi-github me-1"></i> GitHub
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══ HERO SECTION ═══ -->
+    <header class="hero-section" id="hero">
+        <div class="hero-glow"></div>
+        <div class="container position-relative">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8 col-xl-7">
+                    <span class="hero-badge">
+                        <i class="bi bi-stars me-1"></i> Curated for Students
+                    </span>
+                    <h1 class="hero-title">
+                        Your Complete <span class="text-gradient">4-Year</span> Student Toolkit
+                    </h1>
+                    <p class="hero-subtitle">
+                        Discover the best tools, platforms, and resources to supercharge your college journey — from
+                        coding to research to exclusive student deals.
+                    </p>
+
+                    <!-- Search Bar -->
+                    <div class="search-wrapper">
+                        <div class="search-container">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text" id="searchInput" class="search-input"
+                                placeholder="Search tools, platforms, resources..." autocomplete="off">
+                            <kbd class="search-kbd d-none d-md-inline-flex">Ctrl+K</kbd>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="hero-stats">
+                        {% set total_tools = tools.values() | map(attribute='tools') | map('length') | sum %}
+                        <div class="stat-item">
+                            <span class="stat-number">{{ tools | length }}</span>
+                            <span class="stat-label">Categories</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">{{ total_tools }}</span>
+                            <span class="stat-label">Tools</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Free to Use</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══ CATEGORY FILTERS ═══ -->
+    <section class="filter-section" id="categories">
+        <div class="container">
+            <div class="filter-bar" id="filterBar">
+                <button class="filter-pill active" data-category="all">
+                    <i class="bi bi-grid-fill"></i> All
+                </button>
+                {% for category, data in tools.items() %}
+                <button class="filter-pill" data-category="{{ category }}">
+                    <i class="bi {{ data.icon }}"></i> {{ category }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TOOLS GRID ═══ -->
+    <main class="tools-section">
+        <div class="container">
+
+            <!-- No Results State -->
+            <div class="no-results d-none" id="noResults">
+                <div class="no-results-content">
+                    <i class="bi bi-search-heart"></i>
+                    <h3>No tools found</h3>
+                    <p>Try a different search term or category.</p>
+                </div>
+            </div>
+
+            {% for category, data in tools.items() %}
+            <div class="category-block" data-category-block="{{ category }}">
+                <div class="category-header">
+                    <div class="category-badge" style="--cat-color: {{ data.color }}">
+                        <i class="bi {{ data.icon }}"></i>
+                    </div>
+                    <h2 class="category-title">{{ category }}</h2>
+                    <span class="category-count">{{ data.tools | length }} tools</span>
+                    <div class="category-line"></div>
+                </div>
+                <div class="row g-4">
+                    {% for tool in data.tools %}
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 tool-card-col"
+                        data-tool-name="{{ tool.name | lower }}" data-tool-desc="{{ tool.description | lower }}">
+                        <a href="{{ tool.url }}" target="_blank" rel="noopener noreferrer" class="tool-card"
+                            style="--card-accent: {{ data.color }}">
+                            <div class="card-glow"></div>
+                            <div class="card-icon">
+                                <i class="bi {{ tool.icon }}"></i>
+                            </div>
+                            <div class="card-body-content">
+                                <h3 class="card-title-text">{{ tool.name }}</h3>
+                                <p class="card-desc">{{ tool.description }}</p>
+                            </div>
+                            <div class="card-footer-link">
+                                <span>Visit</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- ═══ ABOUT SECTION ═══ -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Built for Students, <span class="text-gradient">by Students</span></h2>
+                    <p class="section-subtitle">
+                        Student Hub is an open-source, curated collection of the best tools and platforms that every
+                        college student should know about. No ads. No clutter. Just what you need.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                            <span>Always Updated</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="bi bi-shield-check"></i>
+                            <span>Verified Links</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="bi bi-heart-fill"></i>
+                            <span>Community Driven</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+        <div class="container text-center">
+            <div class="footer-brand">
+                <i class="bi bi-mortarboard-fill"></i> Student<span class="brand-accent">Hub</span>
+            </div>
+            <p class="footer-text">Curated with <i class="bi bi-heart-fill text-danger"></i> for students everywhere.
+            </p>
+            <p class="footer-copy">&copy; 2026 StudentHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

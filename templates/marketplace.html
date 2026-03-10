@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Student Hub Marketplace — Shop stickers, bags, laptops, study essentials, and exclusive student deals all in one place.">
+    <title>Marketplace — StudentHub</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="navbar navbar-expand-lg sticky-top" id="main-navbar">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <span class="brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+                <span class="brand-text">Student<span class="brand-accent">Hub</span></span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/marketplace"><i
+                                class="bi bi-bag-fill me-1"></i>Marketplace</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-theme-toggle" id="themeToggle" title="Toggle theme">
+                            <i class="bi bi-sun-fill" id="themeIcon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-accent btn-sm px-3" href="https://github.com" target="_blank" rel="noopener">
+                            <i class="bi bi-github me-1"></i> GitHub
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══ MARKETPLACE HERO ═══ -->
+    <header class="hero-section marketplace-hero" id="hero">
+        <div class="hero-glow"></div>
+        <div class="container position-relative">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8 col-xl-7">
+                    <span class="hero-badge">
+                        <i class="bi bi-bag-heart-fill me-1"></i> Student Marketplace
+                    </span>
+                    <h1 class="hero-title">
+                        Shop <span class="text-gradient">Student</span> Essentials
+                    </h1>
+                    <p class="hero-subtitle">
+                        From laptop stickers to backpacks to noise-cancelling headphones — discover everything you need
+                        for campus life, with exclusive student discounts.
+                    </p>
+
+                    <!-- Search Bar -->
+                    <div class="search-wrapper">
+                        <div class="search-container">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text" id="marketplaceSearch" class="search-input"
+                                placeholder="Search products, deals, brands..." autocomplete="off">
+                            <kbd class="search-kbd d-none d-md-inline-flex">Ctrl+K</kbd>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="hero-stats">
+                        {% set total_products = marketplace.values() | map(attribute='products') | map('length') | sum
+                        %}
+                        <div class="stat-item">
+                            <span class="stat-number">{{ marketplace | length }}</span>
+                            <span class="stat-label">Categories</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">{{ total_products }}</span>
+                            <span class="stat-label">Products</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">🎓</span>
+                            <span class="stat-label">Student Deals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══ CATEGORY FILTERS ═══ -->
+    <section class="filter-section" id="categories">
+        <div class="container">
+            <div class="filter-bar" id="filterBar">
+                <button class="filter-pill active" data-category="all">
+                    <i class="bi bi-grid-fill"></i> All
+                </button>
+                {% for category, data in marketplace.items() %}
+                <button class="filter-pill" data-category="{{ category }}">
+                    <i class="bi {{ data.icon }}"></i> {{ category }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ STUDENT OFFERS & COUPONS ═══ -->
+    <section class="offers-section">
+        <div class="container">
+            <div class="offers-header">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="offers-icon-badge"><i class="bi bi-ticket-perforated-fill"></i></div>
+                    <h2 class="offers-title">Student Offers & Coupons</h2>
+                </div>
+                <p class="offers-subtitle">Exclusive discounts and free tools for verified students</p>
+            </div>
+            <div class="offers-scroll-wrapper">
+                <div class="offers-grid">
+                    {% for offer in offers %}
+                    <a href="{{ offer.url }}" target="_blank" rel="noopener noreferrer" class="offer-card"
+                        style="--offer-color: {{ offer.color }}">
+                        <div class="offer-discount-badge">{{ offer.discount }}</div>
+                        <div class="offer-icon">
+                            <i class="bi {{ offer.icon }}"></i>
+                        </div>
+                        <h3 class="offer-title">{{ offer.title }}</h3>
+                        <p class="offer-subtitle">{{ offer.subtitle }}</p>
+                        <p class="offer-desc">{{ offer.description }}</p>
+                        <div class="offer-coupon">
+                            <span class="coupon-label">Code:</span>
+                            <span class="coupon-code">{{ offer.coupon_code }}</span>
+                        </div>
+                        <div class="offer-footer">
+                            <span class="offer-validity"><i class="bi bi-clock me-1"></i>{{ offer.valid_till }}</span>
+                            <span class="offer-claim">Claim <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRODUCTS GRID ═══ -->
+    <main class="tools-section marketplace-grid">
+        <div class="container">
+
+            <!-- No Results State -->
+            <div class="no-results d-none" id="noResults">
+                <div class="no-results-content">
+                    <i class="bi bi-search-heart"></i>
+                    <h3>No products found</h3>
+                    <p>Try a different search term or category.</p>
+                </div>
+            </div>
+
+            {% for category, data in marketplace.items() %}
+            <div class="category-block" data-category-block="{{ category }}">
+                <div class="category-header">
+                    <div class="category-badge" style="--cat-color: {{ data.color }}">
+                        <i class="bi {{ data.icon }}"></i>
+                    </div>
+                    <h2 class="category-title">{{ category }}</h2>
+                    <span class="category-count">{{ data.products | length }} products</span>
+                    <div class="category-line"></div>
+                </div>
+                <div class="row g-4">
+                    {% for product in data.products %}
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 tool-card-col"
+                        data-tool-name="{{ product.name | lower }}" data-tool-desc="{{ product.description | lower }}">
+                        <a href="{{ product.url }}" target="_blank" rel="noopener noreferrer"
+                            class="tool-card product-card" style="--card-accent: {{ data.color }}">
+                            <div class="card-glow"></div>
+
+                            <!-- Badge -->
+                            {% if product.badge %}
+                            <span class="product-badge" style="background: {{ data.color }}">{{ product.badge }}</span>
+                            {% endif %}
+
+                            <!-- Product Image -->
+                            <div class="product-image-wrapper">
+                                <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}"
+                                    class="product-image" loading="lazy">
+                            </div>
+
+                            <div class="card-body-content">
+                                <h3 class="card-title-text">{{ product.name }}</h3>
+                                <p class="card-desc">{{ product.description }}</p>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">{{ product.price }}</span>
+                                <span class="card-footer-link product-buy-link">
+                                    <span>Shop Now</span>
+                                    <i class="bi bi-arrow-right"></i>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- ═══ BACK TO HUB BANNER ═══ -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Need <span class="text-gradient">Tools & Resources</span> too?</h2>
+                    <p class="section-subtitle">
+                        Head back to the main hub and discover coding platforms, research tools, productivity apps, and
+                        more.
+                    </p>
+                    <a href="/" class="btn btn-accent px-4 py-2">
+                        <i class="bi bi-arrow-left me-2"></i> Back to Student Hub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+        <div class="container text-center">
+            <div class="footer-brand">
+                <i class="bi bi-mortarboard-fill"></i> Student<span class="brand-accent">Hub</span>
+            </div>
+            <p class="footer-text">Curated with <i class="bi bi-heart-fill text-danger"></i> for students everywhere.
+            </p>
+            <p class="footer-copy">&copy; 2026 StudentHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
