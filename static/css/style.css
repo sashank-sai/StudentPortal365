@@ -1159,6 +1159,64 @@ body::before {
     }
 }
 
+@media (max-width: 400px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .stat-number {
+        font-size: 1.05rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    .category-title {
+        font-size: 1.05rem;
+    }
+    
+    .filter-pill {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE NAVBAR OVERRIDES
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 991px) {
+    #navContent {
+        background: var(--navbar-scrolled);
+        padding: 1rem;
+        border-radius: var(--radius-md);
+        margin-top: 0.5rem;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .navbar-nav {
+        margin-bottom: 1rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+    }
+    
+    .navbar-toggler {
+        color: var(--text-primary);
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: none;
+        outline: none;
+    }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    AUTH PAGES (Sign In / Sign Up)
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -1536,9 +1594,32 @@ body::before {
     .profile-card {
         flex-direction: column;
         text-align: center;
+        padding: 1.5rem;
     }
 
     .profile-meta {
         justify-content: center;
     }
-}
+    
+    .profile-avatar {
+        width: 64px;
+        height: 64px;
+        font-size: 1.5rem;
+    }
+    
+    .profile-name {
+        font-size: 1.25rem;
+    }
+    
+    .auth-card {
+        padding: 1.5rem;
+    }
+    
+    .auth-section {
+        padding-top: 5rem;
+    }
+    
+    .auth-title {
+        font-size: 1.25rem;
+    }
+}
