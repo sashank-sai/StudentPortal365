@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   STUDENT HUB — Search, Filter & Theme Logic
+   STUDENT HUB — Search, Filter, Theme, Bookmarks & Ratings
    ═══════════════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -55,9 +55,9 @@
     //  NAVBAR SCROLL EFFECT
     // ═══════════════════════════════════════════════════════════════════════
     function handleScroll() {
-        if (window.scrollY > 20) {
+        if (navbar && window.scrollY > 20) {
             navbar.classList.add('scrolled');
-        } else {
+        } else if (navbar) {
             navbar.classList.remove('scrolled');
         }
     }
@@ -178,8 +178,10 @@
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 var navCollapse = document.getElementById('navContent');
-                var bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
-                if (bsCollapse) bsCollapse.hide();
+                if (navCollapse) {
+                    var bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                    if (bsCollapse) bsCollapse.hide();
+                }
             }
         });
     });
@@ -204,3 +206,86 @@
     }
 
 })();
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  BOOKMARK TOGGLE (global scope — called from onclick)
+// ═══════════════════════════════════════════════════════════════════════════
+function toggleBookmark(btn) {
+    if (typeof IS_AUTHENTICATED === 'undefined' || !IS_AUTHENTICATED) {
+        window.location.href = typeof SIGNIN_URL !== 'undefined' ? SIGNIN_URL : '/signin';
+        return;
+    }
+
+    var itemName = btn.getAttribute('data-item');
+    var itemType = btn.getAttribute('data-type');
+    var category = btn.getAttribute('data-category');
+
+    fetch('/api/bookmark', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            item_name: itemName,
+            item_type: itemType,
+            category: category,
+        }),
+    })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            var icon = btn.querySelector('i');
+            if (data.bookmarked) {
+                btn.classList.add('bookmarked');
+                icon.className = 'bi bi-heart-fill';
+            } else {
+                btn.classList.remove('bookmarked');
+                icon.className = 'bi bi-heart';
+            }
+        })
+        .catch(function (err) {
+            console.error('Bookmark error:', err);
+        });
+}
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  STAR RATING (global scope — called from onclick)
+// ═══════════════════════════════════════════════════════════════════════════
+function submitRating(toolName, score, starEl) {
+    if (typeof IS_AUTHENTICATED === 'undefined' || !IS_AUTHENTICATED) {
+        window.location.href = typeof SIGNIN_URL !== 'undefined' ? SIGNIN_URL : '/signin';
+        return;
+    }
+
+    // Quick visual feedback on the stars
+    var container = starEl.closest('.star-rating');
+    var stars = container.querySelectorAll('.star-btn');
+    stars.forEach(function (s, i) {
+        if (i < score) {
+            s.className = 'bi bi-star-fill star-btn';
+        } else {
+            s.className = 'bi bi-star star-btn';
+        }
+    });
+
+    fetch('/api/rate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            tool_name: toolName,
+            score: score,
+            review: '',
+        }),
+    })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            if (data.success) {
+                var avgSpan = container.querySelector('.rating-avg');
+                if (avgSpan) {
+                    avgSpan.innerHTML = data.avg + ' <small>(' + data.count + ')</small>';
+                }
+            }
+        })
+        .catch(function (err) {
+            console.error('Rating error:', err);
+        });
+}

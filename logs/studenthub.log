@@ -1,0 +1,37 @@
+[2026-03-11 11:32:58,116] INFO in app: StudentHub application started
+[2026-03-11 11:32:58,142] INFO in app: Database tables created/verified
+[2026-03-11 11:32:59,258] INFO in app: StudentHub application started
+[2026-03-11 11:32:59,261] INFO in app: Database tables created/verified
+[2026-03-11 11:34:15,334] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:38:11,684] INFO in app: New user registered: testuser (test@example.com)
+[2026-03-11 11:38:35,207] INFO in app: User signed in: testuser
+[2026-03-11 11:38:35,251] INFO in app: Home page loaded | user=testuser
+[2026-03-11 11:39:12,056] INFO in app: Bookmark added: iLovePDF by testuser
+[2026-03-11 11:39:20,375] INFO in app: New rating: QuillBot = 4 by testuser
+[2026-03-11 11:41:39,062] INFO in app: Marketplace loaded | user=testuser
+[2026-03-11 11:42:13,478] INFO in app: Profile viewed: testuser
+[2026-03-11 11:43:15,682] INFO in app: User signed out: testuser
+[2026-03-11 11:43:15,697] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:47:14,936] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:47:55,259] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:48:22,994] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:49:48,465] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:49:52,479] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:49:53,828] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:49:59,913] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:50:01,140] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:50:02,517] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:50:05,233] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:50:06,911] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:50:09,828] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:50:11,170] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:50:13,188] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 11:50:14,810] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:55:15,963] INFO in app: Marketplace loaded | user=anonymous
+[2026-03-11 11:56:05,443] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 13:26:03,974] INFO in app: StudentHub application started
+[2026-03-11 13:26:03,979] INFO in app: Database tables created/verified
+[2026-03-11 13:26:04,845] INFO in app: StudentHub application started
+[2026-03-11 13:26:04,845] INFO in app: Database tables created/verified
+[2026-03-11 13:26:12,280] INFO in app: Home page loaded | user=anonymous
+[2026-03-11 13:32:24,914] INFO in app: Home page loaded | user=anonymous
