@@ -35,3 +35,26 @@
 [2026-03-11 13:26:04,845] INFO in app: Database tables created/verified
 [2026-03-11 13:26:12,280] INFO in app: Home page loaded | user=anonymous
 [2026-03-11 13:32:24,914] INFO in app: Home page loaded | user=anonymous
+[2026-03-14 21:46:12,744] INFO in app: StudentHub application started
+[2026-03-14 21:46:12,760] INFO in app: Database tables created/verified
+[2026-03-14 21:46:13,708] INFO in app: StudentHub application started
+[2026-03-14 21:46:13,710] INFO in app: Database tables created/verified
+[2026-03-14 21:46:17,516] INFO in app: Home page loaded | user=anonymous
+[2026-03-14 21:47:17,675] WARNING in app: Failed login attempt for: sashankachari@gmail.com
+[2026-03-14 21:47:36,909] INFO in app: New user registered: sai (sashankachari@gmail.com)
+[2026-03-14 21:47:43,835] INFO in app: User signed in: sai
+[2026-03-14 21:47:43,852] INFO in app: Home page loaded | user=sai
+[2026-03-14 21:48:00,633] INFO in app: Marketplace loaded | user=sai
+[2026-03-14 21:48:25,484] INFO in app: Home page loaded | user=sai
+[2026-03-14 21:49:42,935] INFO in app: Marketplace loaded | user=sai
+[2026-03-14 21:50:15,462] INFO in app: Home page loaded | user=sai
+[2026-03-14 21:57:55,834] INFO in app: Home page loaded | user=sai
+[2026-03-14 21:58:31,468] INFO in app: Home page loaded | user=sai
+[2026-03-14 22:00:25,079] INFO in app: Home page loaded | user=sai
+[2026-03-14 22:00:38,022] INFO in app: Home page loaded | user=sai
+[2026-03-14 22:00:50,588] INFO in app: Home page loaded | user=sai
+[2026-03-14 22:00:59,641] INFO in app: Home page loaded | user=sai
+[2026-03-14 22:01:14,592] INFO in app: Home page loaded | user=sai
+[2026-03-14 22:01:44,064] INFO in app: Home page loaded | user=sai
+[2026-03-14 22:01:55,676] INFO in app: Marketplace loaded | user=sai
+[2026-03-14 22:02:14,066] INFO in app: Home page loaded | user=sai
