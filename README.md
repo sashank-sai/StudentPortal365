@@ -2,15 +2,8 @@
 
 A comprehensive portal designed to empower students by providing a curated directory of essential academic and productivity tools, an exclusive student marketplace, and a hub for student deals. Built with Flask, this application features user authentication, personalized bookmarking, and community ratings.
 
-<br>
-<div align="center">
-  <img src="static/images/home.png" alt="StudentHub Home Page" width="80%">
-  <br><br>
-  <img src="static/images/marketplace.png" alt="Student Marketplace" width="80%">
-</div>
-<br>
-
 ## 🚀 Features
+
 
 - **Resource Directory**: A categorized collection of tools covering Utilities, DSA & Coding, Research & AI, Learning Platforms, and Productivity.
 - **Student Marketplace**: Discover curated products tailored for student life, including study essentials, laptops, and backpacks.
