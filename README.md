@@ -2,6 +2,8 @@
 
 A comprehensive portal designed to empower students by providing a curated directory of essential academic and productivity tools, an exclusive student marketplace, and a hub for student deals. Built with Flask, this application features user authentication, personalized bookmarking, and community ratings.
 
+Explore the application at : https://studentportal365.onrender.com/ 
+
 ## 🚀 Features
 
 
